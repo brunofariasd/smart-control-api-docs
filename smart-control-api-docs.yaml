@@ -1,0 +1,139 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: Smart Control API
+  description: "Esta documentação disponibiliza e torna acessível os métodos disponíveis para o serviço do Smart Control Api"
+  contact:
+    email: bruno.fariasd1@gmail.com
+tags:
+  - name: Dispositivos
+    description: Gerencie seus dispositivos conectados em rede.
+  - name: Routinas
+    description: Gerencie e configure as suas rotinas.
+paths:
+  /devices:
+    get:
+      tags:
+        - Dispositivos
+      summary: Retornar uma lista com todos os dispositivos cadastrados.
+      description:
+      operationId: listDevices
+      responses:
+        "200":
+          description: Dispositivo cadastrados.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Device"
+    post:
+      tags:
+        - Dispositivos
+      summary: Adiciona um novo dispositivo.
+      description:
+      operationId: addDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ip:
+                  type: string
+                hostName:
+                  type: string
+                  format: string
+      responses:
+        "200":
+          description: Dispositivo criado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Device"
+
+  /devices/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: ID do dispositivo
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Dispositivos
+      summary: Retorna um dispositivo cadastrado.
+      description:
+      operationId: listDevice
+      responses:
+        "200":
+          description: Dispositivo cadastrados.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Device"
+    put:
+      tags:
+        - Dispositivos
+      summary: Atualiza um dispositivo existente.
+      description:
+      operationId: updateDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ip:
+                  type: string
+                hostName:
+                  type: string
+                  format: string
+      responses:
+        "200":
+          description: Dispositivo criado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Device"
+    delete:
+      tags:
+        - Dispositivos
+      summary: Remove um dispositivo cadastrado.
+      description:
+      operationId: deleteDevices
+      responses:
+        "200":
+          description: Dispositivo cadastrados.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Device"
+servers:
+  - url: http://localhost:3333
+components:
+  requestBodies:
+    Device:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Device"
+      required: true
+  schemas:
+    Device:
+      type: object
+      properties:
+        id:
+          type: string
+        ip:
+          type: string
+        hostName:
+          type: string
+          format: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      xml:
+        name: Device
