@@ -8,7 +8,7 @@ info:
 tags:
   - name: Dispositivos
     description: Gerencie seus dispositivos conectados em rede.
-  - name: Routinas
+  - name: Rotinas
     description: Gerencie e configure as suas rotinas.
 paths:
   /devices:
@@ -20,7 +20,7 @@ paths:
       operationId: listDevices
       responses:
         "200":
-          description: Dispositivo cadastrados.
+          description: Dispositivos cadastrados.
           content:
             application/json:
               schema:
@@ -66,7 +66,7 @@ paths:
       operationId: listDevice
       responses:
         "200":
-          description: Dispositivo cadastrados.
+          description: Dispositivo encontrado com sucesso!
           content:
             application/json:
               schema:
@@ -90,7 +90,7 @@ paths:
                   format: string
       responses:
         "200":
-          description: Dispositivo criado com sucesso.
+          description: Dispositivo atualizado com sucesso!
           content:
             application/json:
               schema:
@@ -103,11 +103,7 @@ paths:
       operationId: deleteDevices
       responses:
         "200":
-          description: Dispositivo cadastrados.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Device"
+          description: Dispositivo excluido com sucesso!
 servers:
   - url: http://localhost:3333
 components:
@@ -137,3 +133,53 @@ components:
           format: date-time
       xml:
         name: Device
+    Routine:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          format: string
+        date:
+          type: string
+          format: date-time
+        deviceToRoutine:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              routine_id:
+                type: string
+                format: string
+              device_id:
+                type: string
+                format: string
+              device_is_active:
+                type: boolean
+              device:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  ip:
+                    type: string
+                  hostName:
+                    type: string
+                    format: string
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      xml:
+        name: Routine
